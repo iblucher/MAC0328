@@ -18,7 +18,7 @@ struct graph {
     int A;
     int **adj;
 };
-typedef struct graph *Graph;
+typedef struct graph * Graph;
 
 /* A função MATRIXinit aloca uma matriz com l linhas e c colunas e cada
  * elemento recebe o valor val.
@@ -35,7 +35,9 @@ static int **MATRIXinit(int l, int c, int val) {
     return M;
 }
 
-/* A função GRAPHinit() constrói um grafo com vértices 0..V -1 e nenhum arco. */
+/* A função GRAPHinit() constrói um grafo com vértices 0..V -1 e nenhum arco
+ * em θ(V^2).
+ */
 Graph GRAPHinit(int V) {
     Graph G = malloc(sizeof *G);
     G->V = V;
@@ -44,7 +46,7 @@ Graph GRAPHinit(int V) {
     return G;
 }
 
-/* A função GRAPHinsertArc() insere um arco v-w no grafo G. */
+/* A função GRAPHinsertArc() insere um arco v-w no grafo G em θ(1). */
 void GRAPHinsertArc(Graph G, Vertex v, Vertex w) {
     if(v != w && G->adj[v][w] == 0) {
         G->adj[v][w] = 1;
@@ -52,12 +54,23 @@ void GRAPHinsertArc(Graph G, Vertex v, Vertex w) {
     }
 }
 
-/* A função GRAPHremoveArc() remove um arco v-w do grafo G. */
+/* A função GRAPHremoveArc() remove um arco v-w do grafo G em θ(1). */
 void GRAPHremoveArc(Graph G, Vertex v, Vertex w) {
     if(G->adj[v][w] == 1) {
         G->adj[v][w] = 0;
         G->A--;
     }
+}
+
+/* A função GRAPHsource verifica se um dado vértice v é uma fonte (grau de 
+ * entrada do vértice deve ser nulo) em θ(V). */
+int GRAPHsource(Graph G, Vertex v) {
+    Vertex w;
+    for(w = 0; w < G->V; w++) {
+        if(G->adj[u][v] == 1)
+            return 0;
+    }
+    return 1;
 }
 
 /* A função GRAPHshow() imprime, para cada vértice v do grafo G, em uma linha,
