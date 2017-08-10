@@ -4,9 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-/* Vértices de grafos são representados por objetos do tipo Vertex. */
-#define Vertex int
+#include "util.h"
 
 /* A estrutura graph representa um grafo. O campo adj é um ponteiro para a
  * matriz de adjacências do grafo. O campo V contém o número de vértices e o
@@ -18,7 +16,6 @@ struct graph {
     int A;
     int **adj;
 };
-typedef struct graph * Graph;
 
 /* A função MATRIXinit aloca uma matriz com l linhas e c colunas e cada
  * elemento recebe o valor val.
@@ -46,6 +43,35 @@ Graph GRAPHinit(int V) {
     return G;
 }
 
+int GRAPHvertex(Graph G) {
+    return G->V;
+}
+
+int GRAPHedges(Graph G) {
+    return G->A;
+}
+
+int GRAPHindegree(Graph G, Vertex v) {
+    int indeg = 0;
+    Vertex w;
+    for(w = 0; w < G->V; w++) {
+        if(G->adj[w][v] == 1)
+            indeg++;
+    }
+    return indeg;
+}
+
+int GRAPHoutdegree(Graph G, Vertex v) {
+    int outdeg = 0;
+    Vertex w;
+    for(w = 0; w < G->V; w++) {
+        if(G->adj[v][w] == 1)
+            outdeg++;
+    }
+    return outdeg;
+}
+
+
 /* A função GRAPHinsertArc() insere um arco v-w no grafo G em θ(1). */
 void GRAPHinsertArc(Graph G, Vertex v, Vertex w) {
     if(v != w && G->adj[v][w] == 0) {
@@ -65,16 +91,13 @@ void GRAPHremoveArc(Graph G, Vertex v, Vertex w) {
 /* A função GRAPHsource verifica se um dado vértice v é uma fonte (grau de 
  * entrada do vértice deve ser nulo) em θ(V). */
 int GRAPHsource(Graph G, Vertex v) {
-    Vertex w;
-    for(w = 0; w < G->V; w++) {
-        if(G->adj[u][v] == 1)
-            return 0;
-    }
-    return 1;
+    if(GRAPHindegree(G, v) == 0)
+            return TRUE;
+    return FALSE;
 }
 
 /* A função GRAPHshow() imprime, para cada vértice v do grafo G, em uma linha,
- * todos os vértices adjacentes a v.
+ * todos os vértices adjacentes a v em θ(V^2).
  */
 void GRAPHshow(Graph G) {
     Vertex v, w;
@@ -89,6 +112,9 @@ void GRAPHshow(Graph G) {
 }
 
 int main() {
+
+    int resp;
+
     Graph G = GRAPHinit(7);
     GRAPHinsertArc(G, 0, 1);
     GRAPHinsertArc(G, 1, 3);
@@ -106,4 +132,7 @@ int main() {
     printf("Removendo arco 4-3.\n");
 
     GRAPHshow(G);
+
+    resp = GRAPHsource(G, 4);
+    printf("%d\n", resp);
 }
