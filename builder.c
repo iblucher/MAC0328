@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "util.h"
+#include "graph_matrix.h"
+#include "graph_lists.h"
 
 /* A função GRAPHbuildComplete() constrói um grafo completo (cada par de 
  * vértices distintos é conectado por um par único de arcos, um em cada 

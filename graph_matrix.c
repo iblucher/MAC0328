@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include "util.h"
 
+/* Vértices de grafos são representados por objetos do tipo Vertex. */
+#define Vertex int
+
 /* A estrutura graph representa um grafo. O campo adj é um ponteiro para a
  * matriz de adjacências do grafo. O campo V contém o número de vértices e o
  * campo A contém o número de arcos do grafo. Um Graph é um ponteiro para um
@@ -16,6 +19,7 @@ struct graph {
     int A;
     int **adj;
 };
+typedef struct graph * Graph;
 
 /* A função MATRIXinit aloca uma matriz com l linhas e c colunas e cada
  * elemento recebe o valor val.
@@ -70,7 +74,6 @@ int GRAPHoutdegree(Graph G, Vertex v) {
     }
     return outdeg;
 }
-
 
 /* A função GRAPHinsertArc() insere um arco v-w no grafo G em θ(1). */
 void GRAPHinsertArc(Graph G, Vertex v, Vertex w) {

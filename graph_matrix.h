@@ -1,14 +1,5 @@
-#ifndef UTIL_H_
-#define UTIL_H_
-
-#define TRUE 1
-#define FALSE 0
-
-/* Vértices de grafos são representados por objetos do tipo Vertex. */
-#define Vertex int
-
-struct graph;
-typedef struct graph * Graph;
+#ifndef MATRIX_H_
+#define MATRIX_H_
 
 Graph GRAPHinit(int V);
 
