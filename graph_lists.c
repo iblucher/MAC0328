@@ -4,10 +4,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "util.h"
-
-/* Vértices de grafos são representados por objetos do tipo Vertex. */
-#define Vertex int
+#include "graph_lists.h"
 
 struct node {
     Vertex w;
@@ -23,7 +20,6 @@ struct graph {
     int A;
     link *adj;
 };
-typedef struct graph * Graph;
 
 /* A função NEWnode() recebe um vértice w e o endereço first de um nó e devolve
  * o endereço p de um novo nó tal que p->w == w e p-> next == first.

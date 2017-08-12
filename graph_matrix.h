@@ -1,6 +1,11 @@
 #ifndef MATRIX_H_
 #define MATRIX_H_
 
+/* Vértices de grafos são representados por objetos do tipo Vertex. */
+#define Vertex int
+
+typedef struct graph * Graph;
+
 Graph GRAPHinit(int V);
 
 int GRAPHvertex(Graph G);
